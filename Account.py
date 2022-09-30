@@ -1,6 +1,5 @@
-#this will have all the account functions
-#reading from files, hashing and writing to the files
-#and seeing if the file exists
+#   Matthew Gerola
+#   Fall 2022
 
 from hashlib import sha256
 import os
@@ -74,6 +73,10 @@ class Account():
             account_file.write('\n')
         
         os.chdir('..')
+
+    def create_account(self):
+        pass
+        #check to see if the account is already been made...
         
 
 
