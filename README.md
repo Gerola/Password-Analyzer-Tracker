@@ -12,8 +12,8 @@
 
    
 ## Perceptron:
-  The perceptron vectors will already be trained offline so the training wont need to take place with every startup of the program. It wont learn after the training either.
+  The perceptron vectors will already be trained offline so the training wont need to take place with every startup of the program. It wont learn after the training, it will go off the vector it has from the training data.
 
 
 ## Password Suggestions:
-  The program will suggest a new password if the one provided is weak.
+  The program will suggest new passwords if the one provided is weak for the user to choose from. The one chosen will then if an account has been created be hashed and written to the user's file so they will know if this password has been used before and not to use it in the future.
