@@ -1,5 +1,7 @@
-#   Matthew Gerola
-#   Fall 2022
+#--------------------
+#   Matthew Gerola  -
+#   Fall 2022       -
+#--------------------
 
 from hashlib import sha256
 import os
@@ -12,18 +14,25 @@ class Account():
     
     #-------------------Set the name and hash as well---------------------
     def hash_name(self,name):
-        name += name[0] + name[1] + name[2]
+        if len(name) > 4:
+            name += name[0] + name[1] + name[2]
         self.account_name = sha256(name.encode("utf-8")).hexdigest() #Set the name of the account
     #----------------------------------------------------------------------
 
-
-    def open_files(self):
+    #--------------------See if the Accounts directory is present or Not---------------
+    def check_for_Accounts(self):
         directory = os.getcwd()#get cwd
         directory += "/Accounts"
         if(os.path.exists(directory) == 0):#see if the directory is made or not
             os.mkdir(directory)
+    #---------------------------------------------------------------------------------- 
+
+#------------------See if the account is present in the Accounts directory-------------------
+    def find_Account(self):
+        directory = os.getcwd()#get cwd
+        directory += "/Accounts"
         #----------------Get whats inside------------------------
-        items = os.listdir(directory)#get the items in the directory
+        items = os.listdir(directory)#  get the items in the directory
         #--------------------------------------------------------
         #See if the account has been made or not
         os.chdir('Accounts')
@@ -36,6 +45,7 @@ class Account():
                         self.list_passwords.append(a.replace('\n', ""))    
 
         if found == 1:
+            os.chdir('..')
             return 0 #account was found
     #--------------------File not found and needs to be created possibly--------------------
         if(found == 0):
@@ -44,11 +54,12 @@ class Account():
             if s == 'Y':
                 with open(self.account_name,'w') as files_name:
                     files_name.write("")     
+                os.chdir('..')
                 return 0 #Account created
 
             if s == 'N':
+                os.chdir('..')
                 return 1 #No account was made
-        os.chdir('..')
 
     #-----------------Check to see if the password has been used by this person already-----
     def pass_used(self,password):
@@ -65,7 +76,8 @@ class Account():
 
 
             
-    def write_to_file(self,password):#write the new password to the file
+    def write_to_file(self,password):
+        #write the new password to the file
         os.chdir('Accounts')
         
         with open (self.account_name, 'a+') as account_file:
@@ -74,10 +86,18 @@ class Account():
         
         os.chdir('..')
 
+    #---------------Making a new Account---------------------
     def create_account(self):
-        pass
-        #check to see if the account is already been made...
+        os.chdir('Accounts')
+        items = os.listdir(os.getcwd())#  get the items in the directory
+        for x in items:
+            if x == self.account_name:
+                print("This name is already taken please choose another.\n")
+                return 1
         
+        with open(self.account_name,'w') as files_name:
+                files_name.write("")     
+                return 0
 
-
-
+        os.chdir('..')
+    #--------------------------------------------------------
