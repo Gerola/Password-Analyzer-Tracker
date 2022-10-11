@@ -10,6 +10,6 @@ class New_Password():
 
 
     def pass_word_creator(self,password):
-        
-    #Have the creator have multiple passwords maybe 10...
+        pass
+    #Have the creator get multiple passwords maybe 10 to choose from...
     

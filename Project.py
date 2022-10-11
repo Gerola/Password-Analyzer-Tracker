@@ -7,6 +7,11 @@ from Account import Account
 from Perceptron import Perceptron
 from New_Password import New_Password
 
+#-----------------------------------------------------------#
+    #Currently this is just full of code that is being tested,
+    #Nothing is final in this file yet...
+#-----------------------------------------------------------#
+
 def Project():
     per = Perceptron()#<---
     NP = New_Password()#<--- All the variables needed
@@ -22,7 +27,8 @@ def Project():
     while(s != 4):
         s = input("1. Enter Password \n2. Find Account\n3. Create Account\n4. Exit\n")
         s = int(s)
-
+        per.training()
+        print(per.feature_vectors)
     #if 1 enter input
     #2 find the account to login
     #3 create new account
