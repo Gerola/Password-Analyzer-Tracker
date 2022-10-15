@@ -15,7 +15,11 @@
 
    
 ## Perceptron:
-  The perceptron vectors will already be trained offline so the training wont need to take place with every startup of the program. Another key element of Perceptron is it wont learn after the training, it will go off the vector it has from the training data to classify passwords that are given.
+  The perceptron vectors will already be trained offline so the training wont need to take place with every startup of the program. Another key element of Perceptron is it wont learn after the training, it will go off the vector it has from the training data to classify passwords that are given. The feature vector of Percetron in this order *length of password, number of special characters, number of digits, number of capital letters,  number of different characters (uppercase,  lowercase,  digits, special characters),  entropy of the password*<br>
+  
+**Example**:<br>
+Password: "Passw0rd123$#"<br>
+Vector: [13,2,4,1,4,?]<br>
 
 
 ## Password Suggestions:
