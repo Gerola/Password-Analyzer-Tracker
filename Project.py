@@ -19,16 +19,21 @@ def Project():
 
     s = Account()
     name = input("Enter your name: ")
-    s.hash_name(name)
-    s.find_Account()
+    l = list(name)
+    print(l)
+    o = ""
+    o = o.join(l)
+    print(o)
+    
+
+
     
     print(s.account_name)
     s = 1
     while(s != 4):
         s = input("1. Enter Password \n2. Find Account\n3. Create Account\n4. Exit\n")
         s = int(s)
-        per.training()
-        print(per.feature_vectors)
+    
     #if 1 enter input
     #2 find the account to login
     #3 create new account
