@@ -15,7 +15,7 @@ class Perceptron():
         self.special_chars = {'!':1,'@':1,'#':1,'$':1,'%':1,'&':1,'*':1,'(':1,')':1,'.':1}
         #----------Feature Vectors----------:
         #length, number of special characters, number of numbers, number of capital letters, number of different characters (lowercase,uppercase,characters,numbers), entropy of password
-        self.learning = 0.25 #learning rate of the program 
+        self.learning = 0.15 #learning rate of the program 
        
 
     def training(self):
@@ -40,7 +40,8 @@ class Perceptron():
                     print("CORRECT")
                     to+=1
                     co+=1
-                print(co/to)
+                
+        print(str(co) + "/" + str(to))
 
             
 #------------------Actual classification based on the data collected about the password--------------
