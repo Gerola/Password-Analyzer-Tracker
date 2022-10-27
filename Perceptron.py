@@ -12,12 +12,14 @@ class Perceptron():
         self.feature_vectors = [0,0,0,0,0,0]
         self.password_vector = [0,0,0,0,0,0]
         self.different = [0,0,0,0]
-        self.special_chars = {'!':1,'@':1,'#':1,'$':1,'%':1,'&':1,'*':1,'(':1,')':1,'.':1}
+        self.special_chars = {'!':1,'@':1,'#':1,'$':1,'%':1,'&':1,'*':1,'(':1,')':1,'.':1,'^':1}
         #----------Feature Vectors----------:
         #length, number of special characters, number of numbers, number of capital letters, number of different characters (lowercase,uppercase,characters,numbers), entropy of password
-        self.learning = 0.15 #learning rate of the program 
-       
-
+        self.learning = 0.10 #learning rate of the program 
+        
+        #I took out the entropy and found it generalized the information better than with the entropy involved in the classifiying process
+        #will print out the entropy just to show the user what the value is
+    
     def training(self):
         classify = 0
         co = 0
@@ -37,11 +39,12 @@ class Perceptron():
                     self.update_weights(int(p_n))
                     to+= 1
                 else:
-                    print("CORRECT")
+                    #print("CORRECT")
                     to+=1
                     co+=1
                 
         print(str(co) + "/" + str(to))
+        print(str(co/to))
 
             
 #------------------Actual classification based on the data collected about the password--------------
@@ -55,7 +58,8 @@ class Perceptron():
 
     def get_weights(self,password):#given a password classify the password as strong or weak
         self.reset_values()#reset the values
-        self.password_vector[0] = len(password)#The total length of the password
+        if len(password) > 20:
+            self.password_vector[0] = 1
         for x in password:
             if x.isupper():
                 self.different[1] = 1
@@ -72,14 +76,15 @@ class Perceptron():
                 self.different[2] = 1
                 #print("C")
                 self.password_vector[1] += 1
-            
+
         total = 0
         for x in self.different:
             if x == 1:
                 total += 1
         self.password_vector[4] = total#this is the total number of different characters
-        self.calulate_entropy()
-        print(self.password_vector)
+        #self.calulate_entropy()
+        
+        #print(self.password_vector)
 
 #------------------What the program will use to classify the user password------------------
     def user_classify(self,password):
@@ -95,7 +100,9 @@ class Perceptron():
 #-----------When the predictions isn't correct-----------------------------
     def update_weights(self,actual_value):#if the classification is wrong then update the weights
         for x in range(0,6):
+         #   print((self.learning * int(actual_value) * int(self.password_vector[x])))
             self.feature_vectors[x] = self.feature_vectors[x] + (self.learning * actual_value * self.password_vector[x])
+        #print(self.password_vector)
 #--------------------------------------------------------------------------
 
 #---------------Reset the Values-----------
@@ -120,5 +127,4 @@ class Perceptron():
         square = math.pow(total,self.password_vector[0])#amount of unique characters to the power of the length of the password
         entropy = math.log2(square) #log 2 of the total characters present
         self.password_vector[5] = entropy#set the entropy into the password vector
-        
 #----------------------------------------------------------------------
