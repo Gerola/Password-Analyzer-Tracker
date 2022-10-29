@@ -4,6 +4,8 @@
 #--------------------
 
 import random
+import string
+from Perceptron import Perceptron
 
 class New_Password():
     def __init__(self):
@@ -19,18 +21,18 @@ class New_Password():
 #-------------Need to check to see if there is only one character in the string then it will make a difference in the new password that
 #-------------will be generated
     def password_creator(self,password):
+        self.passwords.clear()#reset the values
         length = password
         if len(password) < 10:
-            shuffle = list(password)
+            shuffle = random.choices(string.ascii_lowercase,k=10)#Get 10 random numbers that are lowercase
             random.shuffle(shuffle)#shuffle the string into something else if too short
-            shuffle_string = ""
-            shuffle_string = shuffle_string.join(shuffle)
+            shuffle_string = "".join(shuffle)
             while len(length) < 10:
                 length += shuffle_string
         rands = 0
         new_pass = ""
         check_digits = 0
-        for x in range(0,9): #create 10 passwords for the user to choose from
+        for x in range(0,10): #create 10 passwords for the user to choose from
             rands = random.randint(0,1)
           #  print(rands)
             for letter in length:
@@ -61,7 +63,7 @@ class New_Password():
                     new_pass += (str(letter))#Nothing to change then add to the new password
             
 
-            new_pass += self.extra_words[random.randint(0,9)]
+            new_pass += self.extra_words[random.randint(0,9)]#add the extra word onto the end of the new password
 
             # shuffling will help with the real world aspect since this perceptron doesn't know words only number of items in
             #   a password
@@ -76,4 +78,17 @@ class New_Password():
                 new_pass = ""
            
     #Have the creator get multiple passwords maybe 10 to choose from and select from those...
-    
+
+
+#Have the new passwords generated be run through the machine learning vector to classify them as weak or strong
+#-----------------------------------------------------
+    def run_new_passwords(self):
+        classify = Perceptron()
+        strong = []
+        for x in self.passwords:
+            if classify.user_classify(x):
+                
+                strong.append(x)
+                
+        self.passwords = strong
+#-----------------------------------------------------

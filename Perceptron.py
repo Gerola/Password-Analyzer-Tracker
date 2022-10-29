@@ -9,7 +9,8 @@ import math
 
 class Perceptron():
     def __init__(self):
-        self.feature_vectors = [0,0,0,0,0,0]
+        #These numbers produced a 98% correct value
+        self.feature_vectors = [4.899999999999999, 1.0, -0.2000000000000027, 0.5000000000000004, -0.4999999999999972, 0.0]
         self.password_vector = [0,0,0,0,0,0]
         self.different = [0,0,0,0]
         self.special_chars = {'!':1,'@':1,'#':1,'$':1,'%':1,'&':1,'*':1,'(':1,')':1,'.':1,'^':1}

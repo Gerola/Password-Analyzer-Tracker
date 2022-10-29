@@ -6,6 +6,7 @@
 from Account import Account
 from Perceptron import Perceptron
 from New_Password import New_Password
+import random
 
 #-----------------------------------------------------------#
     #Currently this is just full of code that is being tested,
@@ -19,21 +20,27 @@ def Project():
 
     s = Account()
     name = input("Enter your name: ")
-    l = list(name)
-    print(l)
-    o = ""
-    o = o.join(l)
-    print(o)
-    
-
-
     
     print(s.account_name)
     s = 1
     while(s != 4):
         s = input("1. Enter Password \n2. Find Account\n3. Create Account\n4. Exit\n")
         s = int(s)
-    
+        
+        #-------------Testing-------------
+        #       if the entropy is high then say the password is good but could be better and then give the suggestions
+        #   about what to change
+        
+        per.training()
+        print(per.feature_vectors)
+        NP.password_creator("1")
+        NP.run_new_passwords()
+        for x in NP.passwords:
+            print("Password:    "+x)
+        print(len(NP.passwords))
+        #---------------------------------
+
+
     #if 1 enter input
     #2 find the account to login
     #3 create new account
