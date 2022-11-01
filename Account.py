@@ -9,14 +9,14 @@ import os
 class Account():
 
     def __init__(self):
-        self.account_name = ""
+        self.account_name = "N/A"
         self.list_passwords = []
     
 #-------------------Set the name and hash as well---------------------#
     def hash_name(self,name):
         if len(name) > 4:
             name += name[0] + name[1] + name[2] #Salt if the name is larger than 4, will probably change this
-        self.account_name = sha256(name.encode("utf-8")).hexdigest() #Set the name of the account
+        self.account_name = sha256(self.account_name.encode("utf-8")).hexdigest() #Set the name of the account
 #----------------------------------------------------------------------#
 
 #--------------------See if the Accounts directory is present or Not---------------#
@@ -48,6 +48,8 @@ class Account():
         
         print("Account not found:")
         s = input("Would you like to create one? Y/N: ")
+        while(s != 'N' and s != 'Y'):
+            s = input("Would you like to create one? Y/N: ")    
         if s == 'Y':
             with open(self.account_name,'w') as files_name:
                 files_name.write("")     
@@ -86,11 +88,14 @@ class Account():
         for x in items:#check to make sure a unique name
             if x == self.account_name:
                 print("This name is already taken please choose another.\n")
+                input("Press enter to contiue...")
                 os.chdir('..')
                 return 1 #Name already taken
         
         with open(self.account_name,'w') as files_name:
                 files_name.write("")     
                 os.chdir('..')
+                input("Account successfully created...")
                 return 0
 #--------------------------------------------------------#
+    

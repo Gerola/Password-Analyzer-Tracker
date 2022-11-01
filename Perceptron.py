@@ -88,13 +88,16 @@ class Perceptron():
         #print(self.password_vector)
 
 #------------------What the program will use to classify the user password------------------
-    def user_classify(self,password):
+    def user_classify(self):
+        password = input("Enter your password to test its strength  \n:")
         self.get_weights(password)#get feature vector
         x = self.classify()#classify based on feature vector
         if x > 0:
-            return True #Yes strong
+            print("This is a strong password and should be used")
+            input("Click enter to continue")
         else:
-            return False #No weak
+            print("This is a weak password and should not be used")
+            input("Click enter to continue")
 #-------------------------------------------------------------------------------------------
 
                 
