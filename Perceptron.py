@@ -95,9 +95,11 @@ class Perceptron():
         if x > 0:
             print("This is a strong password and should be used")
             input("Click enter to continue")
+            return False
         else:
             print("This is a weak password and should not be used")
             input("Click enter to continue")
+            return True
 #-------------------------------------------------------------------------------------------
 
                 

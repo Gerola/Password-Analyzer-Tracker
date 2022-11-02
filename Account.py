@@ -16,7 +16,7 @@ class Account():
     def hash_name(self,name):
         if len(name) > 4:
             name += name[0] + name[1] + name[2] #Salt if the name is larger than 4, will probably change this
-        self.account_name = sha256(self.account_name.encode("utf-8")).hexdigest() #Set the name of the account
+        return sha256(name.encode("utf-8")).hexdigest() #Set the name of the account
 #----------------------------------------------------------------------#
 
 #--------------------See if the Accounts directory is present or Not---------------#
@@ -41,19 +41,20 @@ class Account():
                     for a in files_name:
                         self.list_passwords.append(a.replace('\n', ""))
                 
+                print("Account was found\n")
+                input("Press Enter to continue...")
                 os.chdir('..')
                 return 0 #account was found    
 
 #--------------------File not found and needs to be created possibly--------------------#
         
         print("Account not found:")
-        s = input("Would you like to create one? Y/N: ")
+        s = 'O'
         while(s != 'N' and s != 'Y'):
             s = input("Would you like to create one? Y/N: ")    
         if s == 'Y':
-            with open(self.account_name,'w') as files_name:
-                files_name.write("")     
             os.chdir('..')
+            self.create_account(self.account_name)  
             return 0 #Account created
 
         else:
@@ -65,7 +66,6 @@ class Account():
         for x in self.list_passwords:
             if x == password:
                 return 1 #Found
-        
         return 0 #Not found
 
 #-----------------Write the new password to the user file--------------#
@@ -82,20 +82,21 @@ class Account():
 
 
 #---------------Making a new Account---------------------#
-    def create_account(self):
+    def create_account(self,name):
         os.chdir('Accounts')
         items = os.listdir(os.getcwd())#  get the items in the directory
+        #print(items)
         for x in items:#check to make sure a unique name
-            if x == self.account_name:
+            if x == name:
+                #print(x)
                 print("This name is already taken please choose another.\n")
                 input("Press enter to contiue...")
                 os.chdir('..')
                 return 1 #Name already taken
         
-        with open(self.account_name,'w') as files_name:
+        with open(name,'w') as files_name:
                 files_name.write("")     
                 os.chdir('..')
                 input("Account successfully created...")
                 return 0
 #--------------------------------------------------------#
-    
