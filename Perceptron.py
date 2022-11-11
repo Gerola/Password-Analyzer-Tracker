@@ -10,7 +10,7 @@ import math
 class Perceptron():
     def __init__(self):
         #These numbers produced a 98% correct value
-        self.feature_vectors = [4.899999999999999, 1.0, -0.2000000000000027, 0.5000000000000004, -0.4999999999999972, 0.0]
+        self.feature_vectors = [4.899999999999999, 1.0, -0.20000000000000304, 0.20000000000000046, -0.4999999999999972, 0.0]
         self.password_vector = [0,0,0,0,0,0]
         self.different = [0,0,0,0]
         self.special_chars = {'!':1,'@':1,'#':1,'$':1,'%':1,'&':1,'*':1,'(':1,')':1,'.':1,'^':1}
@@ -88,18 +88,13 @@ class Perceptron():
         #print(self.password_vector)
 
 #------------------What the program will use to classify the user password------------------
-    def user_classify(self):
-        password = input("Enter your password to test its strength  \n:")
+    def user_classify(self,password):
         self.get_weights(password)#get feature vector
-        x = self.classify()#classify based on feature vector
-        if x > 0:
-            print("This is a strong password and should be used")
-            input("Click enter to continue")
-            return False
-        else:
-            print("This is a weak password and should not be used")
-            input("Click enter to continue")
+        ww = self.classify()#classify based on feature vector
+        if ww >= 0:
             return True
+        else:
+            return False
 #-------------------------------------------------------------------------------------------
 
                 

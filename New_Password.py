@@ -76,6 +76,8 @@ class New_Password():
             else:
                 self.passwords.append(new_pass)
                 new_pass = ""
+        
+        self.run_new_passwords()
            
     #Have the creator get multiple passwords maybe 10 to choose from and select from those...
 
