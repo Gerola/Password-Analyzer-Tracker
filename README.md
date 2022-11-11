@@ -16,7 +16,8 @@ using machine learning. To solve the second problem the program will keep track 
     Exit
   
 ## Output: 
-  "Insert phrase used". "Insert phrase used for not a strong password"
+  Strong Password: This is a strong password<br>
+  Weak Password: This is a weak password
 
    
 ## Perceptron:
