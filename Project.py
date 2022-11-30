@@ -9,67 +9,68 @@ from New_Password import New_Password
 from hashlib import sha256
 import os
 
-#-----------------------------------------------------------#
-    #Currently this is just full of code that is being tested,
-    #Nothing is final in this file yet...
-#-----------------------------------------------------------#
-
-#Run Training one more time...
-#Something is wrong with the Perceptron functions????
 
 
 s = 0
-name = "N/A"
-log = 0
+name = "N/A" #Name of the account
+log = 0 #logged in or not
 per = Perceptron()#<---
-NP = New_Password()#<--- All the variables needed
+NP = New_Password()#<---
 acc = Account()#<---
 
-def quit():
+def quit():#Quit the program
     os.system('clear')
     exit()
 
-def login():
-    global name 
-    name = input("Username: ")
-    acc.account_name = acc.hash_name(name)
-    if (acc.find_Account() == 1):
+def login():#Login to an account
+    global name #name
+    name = input("Username: ") #Get the username of the account
+    acc.account_name = acc.hash_name(name)#hash the name
+    if (acc.find_Account() == 1):#Make sure a unique name
         name = "N/A"
         return
     global log
-    log = 1    
+    log = 1   #Account is logged in now 
     
 def logout():
     global log
     global name
-    acc.account_name = ""   #Don't write to anything...
+    if log != 1:#make sure logged in
+        print("Not currently logged in\n")
+        input("Press Enter to continue...\n")
+        return
+    acc.account_name = ""   #Don't write to anything now
+    acc.list_passwords = [] #make the list of passwords nothing
     name = "N/A" #No name logged in...
     log = 0 #indicate no loggin present...
-    input("Successfully logged out\nPress enter to continue:")
+    input("Successfully logged out\nPress enter to continue:")#Tell the user they are logged out
 
-#--------------Work on this--------------
 def user_class():
     global log
+    global name
     if log: #1 means someone is logged in...
         password = input("Enter the password that you want to use: ")
-        if(acc.pass_used(sha256(password.encode("utf-8")).hexdigest())):
+        if password.isspace() or password == "":#the user just hit enter or spaces
+            return
+        if(acc.pass_used(sha256(password.encode("utf-8")).hexdigest())): #check to make sure hasn't been used before
             print("This password has already been used")
             input("Press Enter to Continue...")
             return
         
-        value = per.user_classify(password)
-        if value == True:
+        value = per.user_classify(password)#strong password or not
+        if value == True:#This is a strong password
             input("This is a strong password\nPress Enter to continue")
             output = 'A'
-            while output != 'Y' and output != 'N':
+            while output != 'Y' and output != 'N':#ask if they want to use this password
                 output = input("Do you want to use this password? (Y/N)")
-            if output == 'Y':
-                print("Ok, this password will be written to your file\n")
-                acc.write_to_file(password)
+            if output == 'Y':#Tell them it will be written to their file
+                input("Ok, "+ name+ ", " + password +" will be written to your file")
+                acc.write_to_file(sha256(password.encode("utf-8")).hexdigest())
+                acc.list_passwords.append(sha256(password.encode("utf-8")).hexdigest())
             else:
-                input("Ok, this password will not be written to your file")
+                input("Ok, this password will not be written to your file")#Else nothing happens
             return
-        else:
+        else:#Weak password was used and suggestions need to be made
             user_i = -1
             input("This is a weak password\nPress Enter to continue")
             NP.password_creator(password)
@@ -82,30 +83,34 @@ def user_class():
                 user_i = input("What password do you want to user?")
                 user_i = ord(user_i)
             
-            print(user_i)
-            print(high + 1)
-            print(chr(user_i))
             place = int(chr(user_i))
-            print(place)
             place = place - 1
             values = NP.passwords[place - 1]
-            print(place)
-            print(len(NP.passwords))
-            input("Ok, "+ values +" will be written to your file")
+            input("Ok, "+ name+ ", " + values +" will be written to your file")
             acc.write_to_file(sha256(NP.passwords[place-1].encode("utf-8")).hexdigest())
+            acc.list_passwords.append(sha256(NP.passwords[place-1].encode("utf-8")).hexdigest())
             return
-    else:
+    else:#No user is logged in
+        password = input("Enter the password that you want to use: ")
+        if password.isspace() or password == "":#the user just hit enter or spaces
+            return
         value = per.user_classify(password)
+        if value == True:
+            print("This is a strong password\n")
+            input("Press enter to continue...")
+        else:
+            print("This is a weak password, its best not to use\n")
+            input("Press enter to continue...")
 
+#Create an account to be used
 def create_account():
     names = input("Name of new account: ")
     hashing = acc.hash_name(names)
-#   print(names)
-#   print(hashing)
     acc.create_account(hashing)
     
 command = {1:user_class,2:create_account,3:login,4:logout,5:quit}#easier calling of functions
 
+#what will be run when the program starts
 def Project():
     acc.check_for_Accounts() #Verify this directory is present to save the passwords
 

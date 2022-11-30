@@ -7,7 +7,6 @@ from hashlib import sha256
 import os
 
 class Account():
-
     def __init__(self):
         self.account_name = "N/A"
         self.list_passwords = []
@@ -85,10 +84,8 @@ class Account():
     def create_account(self,name):
         os.chdir('Accounts')
         items = os.listdir(os.getcwd())#  get the items in the directory
-        #print(items)
         for x in items:#check to make sure a unique name
             if x == name:
-                #print(x)
                 print("This name is already taken please choose another.\n")
                 input("Press enter to contiue...")
                 os.chdir('..')

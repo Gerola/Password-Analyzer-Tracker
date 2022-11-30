@@ -18,9 +18,6 @@ class Perceptron():
         #length, number of special characters, number of numbers, number of capital letters, number of different characters (lowercase,uppercase,characters,numbers), entropy of password
         self.learning = 0.10 #learning rate of the program 
         
-        #I took out the entropy and found it generalized the information better than with the entropy involved in the classifiying process
-        #will print out the entropy just to show the user what the value is
-    
     def training(self):
         classify = 0
         co = 0
@@ -40,12 +37,9 @@ class Perceptron():
                     self.update_weights(int(p_n))
                     to+= 1
                 else:
-                    #print("CORRECT")
                     to+=1
                     co+=1
                 
-        print(str(co) + "/" + str(to))
-        print(str(co/to))
 
             
 #------------------Actual classification based on the data collected about the password--------------
@@ -83,9 +77,6 @@ class Perceptron():
             if x == 1:
                 total += 1
         self.password_vector[4] = total#this is the total number of different characters
-        #self.calulate_entropy()
-        
-        #print(self.password_vector)
 
 #------------------What the program will use to classify the user password------------------
     def user_classify(self,password):

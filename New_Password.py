@@ -17,7 +17,6 @@ class New_Password():
 
 
 
-#                                               **************IMPORTANT**************
 #-------------Need to check to see if there is only one character in the string then it will make a difference in the new password that
 #-------------will be generated
     def password_creator(self,password):
@@ -32,7 +31,7 @@ class New_Password():
         rands = 0
         new_pass = ""
         check_digits = 0
-        for x in range(0,10): #create 10 passwords for the user to choose from
+        for x in range(0,9): #create 10 passwords for the user to choose from
             rands = random.randint(0,1)
           #  print(rands)
             for letter in length:
