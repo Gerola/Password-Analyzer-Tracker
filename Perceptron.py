@@ -5,13 +5,12 @@
 
 import math
 
-#Start on Perceptron and working on reading from a file...
 
 class Perceptron():
     def __init__(self):
         #These numbers produced a 98% correct value
-        self.feature_vectors = [4.899999999999999, 1.0, -0.20000000000000304, 0.20000000000000046, -0.4999999999999972, 0.0]
-        self.password_vector = [0,0,0,0,0,0]
+        self.feature_vectors = [4.899999999999999, 1.0, -0.20000000000000304, 0.20000000000000046, -0.4999999999999972]
+        self.password_vector = [0,0,0,0,0]
         self.different = [0,0,0,0]
         self.special_chars = {'!':1,'@':1,'#':1,'$':1,'%':1,'&':1,'*':1,'(':1,')':1,'.':1,'^':1}
         #----------Feature Vectors----------:
@@ -20,8 +19,6 @@ class Perceptron():
         
     def training(self):
         classify = 0
-        co = 0
-        to = 0
         with open("Passwords_Training.txt",'r') as passwords:
             for PW in passwords:
                 values = PW.split(',')
@@ -35,17 +32,12 @@ class Perceptron():
                     classify = 1
                 if int(p_n) != classify:
                     self.update_weights(int(p_n))
-                    to+= 1
-                else:
-                    to+=1
-                    co+=1
-                
 
             
 #------------------Actual classification based on the data collected about the password--------------
     def classify(self):
         total = 0
-        for x in range(0,6):
+        for x in range(0,5):
             total += self.feature_vectors[x] * self.password_vector[x]
         return total
 #----------------------------------------------------------------------------------------------------
@@ -58,18 +50,14 @@ class Perceptron():
         for x in password:
             if x.isupper():
                 self.different[1] = 1
-              #  print("U")
                 self.password_vector[3] += 1
             elif x.islower():
                 self.different[0] = 1
-               # print("L")
             elif x.isdigit():
                 self.different[3] = 1
-                #print("D")
                 self.password_vector[2] += 1
             elif x in self.special_chars.keys():
                 self.different[2] = 1
-                #print("C")
                 self.password_vector[1] += 1
 
         total = 0
@@ -91,15 +79,13 @@ class Perceptron():
                 
 #-----------When the predictions isn't correct-----------------------------
     def update_weights(self,actual_value):#if the classification is wrong then update the weights
-        for x in range(0,6):
-         #   print((self.learning * int(actual_value) * int(self.password_vector[x])))
+        for x in range(0,5):
             self.feature_vectors[x] = self.feature_vectors[x] + (self.learning * actual_value * self.password_vector[x])
-        #print(self.password_vector)
 #--------------------------------------------------------------------------
 
 #---------------Reset the Values-----------
     def reset_values(self):
-        for x in range(0,6):
+        for x in range(0,5):
             self.password_vector[x] = 0
 
         for y in range(0,4):

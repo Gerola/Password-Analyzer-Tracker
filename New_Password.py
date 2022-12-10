@@ -16,22 +16,19 @@ class New_Password():
         #extra words to include on the end of the password or in the middle to also increase the length of the password add more to the password list to increase security
 
 
-
-#-------------Need to check to see if there is only one character in the string then it will make a difference in the new password that
-#-------------will be generated
     def password_creator(self,password):
         self.passwords.clear()#reset the values
         length = password
         if len(password) < 10:
             shuffle = random.choices(string.ascii_lowercase,k=10)#Get 10 random numbers that are lowercase
-            random.shuffle(shuffle)#shuffle the string into something else if too short
-            shuffle_string = "".join(shuffle)
-            while len(length) < 10:
+            random.shuffle(shuffle)#shuffle the string into something else
+            shuffle_string = "".join(shuffle)#have the shuffle string be joined into a string from the shuffle list
+            while len(length) < 10:#add on until the length is greater than 10
                 length += shuffle_string
         rands = 0
         new_pass = ""
         check_digits = 0
-        for x in range(0,9): #create 10 passwords for the user to choose from
+        for x in range(0,9): #create 9 passwords for the user to choose from
             rands = random.randint(0,1)
           #  print(rands)
             for letter in length:
@@ -47,7 +44,6 @@ class New_Password():
                         new_pass += str(self.numbers[int(letter)])
                     else:
                         new_pass += str(letter)
-                #keep the numbers in the password
                 elif letter.islower():
                     if rands == 0:
                         new_pass += (letter.upper())
@@ -64,8 +60,8 @@ class New_Password():
 
             new_pass += self.extra_words[random.randint(0,9)]#add the extra word onto the end of the new password
 
-            # shuffling will help with the real world aspect since this perceptron doesn't know words only number of items in
-            #   a password
+            # shuffling will help with the real world aspect since perceptron doesn't know words only number of items in
+            #a password
             if rands == 1:
                 op = list(new_pass)
                 random.shuffle(op)
@@ -78,7 +74,8 @@ class New_Password():
         
         self.run_new_passwords()
            
-    #Have the creator get multiple passwords maybe 10 to choose from and select from those...
+        #The creator of the given password will at most receive 9 passwords to choose from based on the one
+        #given to the program
 
 
 #Have the new passwords generated be run through the machine learning vector to classify them as weak or strong
@@ -89,7 +86,7 @@ class New_Password():
         for x in self.passwords:
             if classify.user_classify(x):
                 
-                strong.append(x)
+                strong.append(x)#add to the list if the password is considered strong by the program
                 
         self.passwords = strong
 #-----------------------------------------------------

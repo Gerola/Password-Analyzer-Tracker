@@ -6,9 +6,8 @@
 from Account import Account
 from Perceptron import Perceptron
 from New_Password import New_Password
-from hashlib import sha256
+from hashlib import sha512
 import os
-
 
 
 s = 0
@@ -52,7 +51,7 @@ def user_class():
         password = input("Enter the password that you want to use: ")
         if password.isspace() or password == "":#the user just hit enter or spaces
             return
-        if(acc.pass_used(sha256(password.encode("utf-8")).hexdigest())): #check to make sure hasn't been used before
+        if(acc.pass_used(sha512(password.encode("utf-8")).hexdigest())): #check to make sure hasn't been used before
             print("This password has already been used")
             input("Press Enter to Continue...")
             return
@@ -65,8 +64,8 @@ def user_class():
                 output = input("Do you want to use this password? (Y/N)")
             if output == 'Y':#Tell them it will be written to their file
                 input("Ok, "+ name+ ", " + password +" will be written to your file")
-                acc.write_to_file(sha256(password.encode("utf-8")).hexdigest())
-                acc.list_passwords.append(sha256(password.encode("utf-8")).hexdigest())
+                acc.write_to_file(sha512(password.encode("utf-8")).hexdigest())
+                acc.list_passwords.append(sha512(password.encode("utf-8")).hexdigest())
             else:
                 input("Ok, this password will not be written to your file")#Else nothing happens
             return
@@ -87,8 +86,8 @@ def user_class():
             place = place - 1
             values = NP.passwords[place - 1]
             input("Ok, "+ name+ ", " + values +" will be written to your file")
-            acc.write_to_file(sha256(NP.passwords[place-1].encode("utf-8")).hexdigest())
-            acc.list_passwords.append(sha256(NP.passwords[place-1].encode("utf-8")).hexdigest())
+            acc.write_to_file(sha512(NP.passwords[place-1].encode("utf-8")).hexdigest())
+            acc.list_passwords.append(sha512(NP.passwords[place-1].encode("utf-8")).hexdigest())
             return
     else:#No user is logged in
         password = input("Enter the password that you want to use: ")

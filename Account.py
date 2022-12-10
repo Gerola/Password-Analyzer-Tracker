@@ -3,7 +3,7 @@
 #   Fall 2022       -
 #--------------------
 
-from hashlib import sha256
+from hashlib import sha512
 import os
 
 class Account():
@@ -13,9 +13,16 @@ class Account():
     
 #-------------------Set the name and hash as well---------------------#
     def hash_name(self,name):
-        if len(name) > 4:
-            name += name[0] + name[1] + name[2] #Salt if the name is larger than 4, will probably change this
-        return sha256(name.encode("utf-8")).hexdigest() #Set the name of the account
+        list_salts = ["1234","Tomorrow","Today","789USA"]#Salts for the user accounts to make it harder to solve the hashes
+        if len(name) % 4 == 0:
+            name += list_salts[3]
+        elif len(name) % 3 == 0:
+            name += list_salts[2]
+        elif len(name) % 2 == 0:
+            name += list_salts[1]
+        else:
+            name += list_salts[0]
+        return sha512(name.encode("utf-8")).hexdigest() #Set the name of the account
 #----------------------------------------------------------------------#
 
 #--------------------See if the Accounts directory is present or Not---------------#
