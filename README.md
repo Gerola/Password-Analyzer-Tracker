@@ -23,11 +23,11 @@ using machine learning. To solve the second problem the program will keep track 
 
    
 ## Perceptron:
-  The perceptron vectors will already be trained offline so the training wont need to take place with every startup of the program. Another key element of Perceptron is it won't learn after the training, it will go off the vector it has from the training data to classify passwords that are given. The feature vector of Percetron is the following in this order *length of password, number of special characters, number of digits, number of capital letters,  number of different characters (uppercase,  lowercase,  digits, special characters)*<br>
+  The perceptron vectors will already be trained offline so training won't need to take place everytime the program is run. Another key element is Perceptron won't learn after the training, it will go off the vector it has from the training data to classify passwords that are given. The feature vector of Percetron is the following in this order *if the password is longer than 20 characters, number of special characters, number of digits, number of capital letters,  number of different characters (uppercase,  lowercase,  digits, special characters)*<br>
   
 **Example**:<br>
 Password: "Washb0rd123$#"<br>
-Vector: [13,2,4,1,4]<br>
+Vector: [0,2,4,1,4]<br>
 
 
 ## Password Suggestions:
