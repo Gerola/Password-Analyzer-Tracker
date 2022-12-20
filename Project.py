@@ -130,10 +130,7 @@ def Project():
                 continue
 
         command[s]()
-
-def main():
-    Project()
     
 
 if __name__ == "__main__":
-    main()
+    Project()
