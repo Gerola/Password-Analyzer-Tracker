@@ -16,3 +16,6 @@ Vector: [0,2,4,1,4]<br>
 
 ## Password Suggestions:
   The program will create 9 new passwords based on the one given. Next it will run the 9 new passwords through the machine learning vector and hopefully produce 9 passwords for the user to choose from. Then the user will choose a password generated instead of the one they wanted.
+
+## Run the Program:
+  To run the program run ` python3 Project.py `
